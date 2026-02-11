@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>محبتي ❤️</title>
+      <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+      <style>
+         body{
+         margin:0;
+         font-family:'Cairo',sans-serif;
+         background:linear-gradient(135deg,#ff2e78,#8f44fd);
+         color:white;
+         text-align:center;
+         overflow-x:hidden;
+         }
+         /* شاشة القفل */
+         #lockScreen{
+         position:fixed;
+         width:100%;
+         height:100%;
+         background:#111;
+         display:flex;
+         flex-direction:column;
+         justify-content:center;
+         align-items:center;
+         z-index:9999;
+         }
+         input{
+         padding:12px;
+         border-radius:10px;
+         border:none;
+         margin:10px;
+         }
+         button{
+         padding:12px 25px;
+         border:none;
+         border-radius:30px;
+         cursor:pointer;
+         font-size:16px;
+         background:white;
+         color:#ff2e78;
+         transition:.3s;
+         }
+         button:hover{transform:scale(1.1);}
+         section{
+         background:rgba(255,255,255,0.1);
+         margin:20px;
+         padding:40px;
+         border-radius:20px;
+         backdrop-filter:blur(10px);
+         }
+         img{
+         width:240px;
+         margin:10px;
+         border-radius:20px;
+         box-shadow:0 10px 25px rgba(0,0,0,0.5);
+         transition:.4s;
+         }
+         img:hover{transform:scale(1.1);}
+         /* قلوب */
+         .heart{
+         position:fixed;
+         top:-10px;
+         font-size:20px;
+         animation:fall linear infinite;
+         }
+         @keyframes fall{
+         to{transform:translateY(100vh);opacity:0;}
+         }
+         /* رسالة سرية */
+         #secretMessage{
+         display:none;
+         font-size:20px;
+         margin-top:20px;
+         animation:fade 1s ease forwards;
+         }
+         @keyframes fade{
+         from{opacity:0;transform:translateY(20px);}
+         to{opacity:1;transform:translateY(0);}
+         }
+         /* نبض النص */
+         @keyframes pulse{
+         0%{transform:scale(1);}
+         50%{transform:scale(1.1);}
+         100%{transform:scale(1);}
+         }
+         canvas{
+         position:fixed;
+         top:0;
+         left:0;
+         pointer-events:none;
+         }
+      </style>
+   </head>
+   <body>
+      <canvas id="fireworks"></canvas>
+      <div id="lockScreen">
+         <h2>ادخلي كلمة السر يا روحي ❤️</h2>
+         <input type="password" id="password" placeholder="الباسورد">
+         <button onclick="checkPassword()">دخول</button>
+         <p id="error" style="color:red;"></p>
+      </div>
+      <header style="padding:70px;">
+         <h1>موكتي ❤️</h1>
+         <p>أجمل قصة حب في الدنيا</p>
+      </header>
+      <section>
+         <h2>عدّاد حبنا ⏳</h2>
+         <p id="loveCounter" style="font-size:22px;"></p>
+      </section>
+      <section>
+         <h2>صورنا 📸</h2>
+         <img src="image1.jpg">
+         <img src="image2.jpg">
+         <img src="image3.jpg">
+      </section>
+      <section>
+         <h2>أغنيتنا 🎶</h2>
+         <audio id="song">
+            <source src="يا حلوتي.mp3" type="audio/mpeg">
+         </audio>
+         <br><br>
+         <button onclick="document.getElementById('song').play()">شغلي الأغنية 💕</button>
+      </section>
+      <section>
+         <h2>رسالة ليكي 💌</h2>
+         <button onclick="showMessage()">افتحي الرسالة</button>
+         <p id="secretMessage">
+            انتي أحلى حاجة حصلتلي ❤️  
+            ومهما الدنيا تلف بينا هفضل أحبك 💍
+         </p>
+      </section>
+      <footer style="padding:30px;">
+         بحبك قد الدنيا كلها ❤️
+      </footer>
+      <script>
+         /* 🔐 الباسورد */
+         function checkPassword(){
+         let pass=document.getElementById("password").value;
+         
+         if(pass==="موكتي"){
+         
+         let lock=document.getElementById("lockScreen");
+         lock.style.transition="1s";
+         lock.style.opacity="0";
+         setTimeout(()=>{lock.style.display="none";},1000);
+         
+         document.getElementById("song").play();
+         launchFireworks();
+         typeLoveMessage();
+         
+         }else{
+         document.getElementById("error").innerText="الباسورد غلط 💔";
+         }
+         }
+         
+         /* ⏳ عداد بالثواني */
+         var startDate=new Date("2025-05-09T00:00:00");
+         
+         function updateCounter(){
+         var now=new Date();
+         var diff=now-startDate;
+         
+         var days=Math.floor(diff/(1000*60*60*24));
+         var hours=Math.floor((diff/(1000*60*60))%24);
+         var minutes=Math.floor((diff/(1000*60))%60);
+         var seconds=Math.floor((diff/1000)%60);
+         
+         document.getElementById("loveCounter").innerHTML=
+         "💖 بقالنا مع بعض 💖<br><br>"+
+         days+" يوم 🗓<br>"+
+         hours+" ساعة ⏰<br>"+
+         minutes+" دقيقة ⏳<br>"+
+         seconds+" ثانية ❤️";
+         }
+         setInterval(updateCounter,1000);
+         
+         /* 💖 قلوب */
+         function createHeart(){
+         const heart=document.createElement("div");
+         heart.classList.add("heart");
+         heart.innerHTML="💖";
+         heart.style.left=Math.random()*100+"vw";
+         heart.style.fontSize=Math.random()*20+15+"px";
+         heart.style.animationDuration=Math.random()*3+4+"s";
+         document.body.appendChild(heart);
+         setTimeout(()=>{heart.remove();},6000);
+         }
+         setInterval(createHeart,300);
+         
+         /* 💌 رسالة */
+         function showMessage(){
+         document.getElementById("secretMessage").style.display="block";
+         }
+         
+         /* ✨ كتابة بحبك */
+         function typeLoveMessage(){
+         let text="💖 بحبك موكتي 💖";
+         let i=0;
+         let message=document.createElement("h1");
+         message.style.fontSize="40px";
+         message.style.marginTop="20px";
+         message.style.animation="pulse 1s infinite";
+         document.body.insertBefore(message,document.body.firstChild);
+         
+         function typing(){
+         if(i<text.length){
+         message.innerHTML+=text.charAt(i);
+         i++;
+         setTimeout(typing,100);
+         }
+         }
+         typing();
+         }
+         
+         /* 🎆 ألعاب نارية */
+         const canvas=document.getElementById("fireworks");
+         const ctx=canvas.getContext("2d");
+         canvas.width=window.innerWidth;
+         canvas.height=window.innerHeight;
+         let particles=[];
+         
+         function launchFireworks(){
+         for(let i=0;i<80;i++){
+         particles.push({
+         x:canvas.width/2,
+         y:canvas.height/2,
+         speed:Math.random()*5+2,
+         angle:Math.random()*2*Math.PI,
+         radius:2
+         });
+         }
+         }
+         
+         function animate(){
+         requestAnimationFrame(animate);
+         ctx.fillStyle="rgba(0,0,0,0.1)";
+         ctx.fillRect(0,0,canvas.width,canvas.height);
+         particles.forEach(p=>{
+         p.x+=Math.cos(p.angle)*p.speed;
+         p.y+=Math.sin(p.angle)*p.speed;
+         ctx.beginPath();
+         ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+         ctx.fillStyle="white";
+         ctx.fill();
+         });
+         }
+         animate();
+         
+      </script>
+   </body>
+</html>
