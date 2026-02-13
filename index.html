@@ -18,12 +18,8 @@ text-align:center;
 overflow-x:hidden;
 }
 
-/* اخفاء المحتوى الأساسي */
-header, section, footer{
-display:none;
-}
+header,section,footer{display:none;}
 
-/* شاشة القفل */
 #lockScreen{
 position:fixed;
 width:100%;
@@ -43,7 +39,6 @@ border:none;
 margin:10px;
 }
 
-/* ازرار */
 button{
 padding:12px 30px;
 border:none;
@@ -66,24 +61,15 @@ margin:30px auto;
 padding:35px;
 border-radius:25px;
 width:80%;
-max-width:600px;
+max-width:700px;
 box-shadow:0 10px 30px rgba(255,182,193,0.4);
 }
 
-img{
-width:200px;
-margin:15px;
-border-radius:25px;
-box-shadow:0 8px 20px rgba(255,105,180,0.3);
-}
-
-/* شاشة الرسالة */
+/* Happy Screen */
 #happyScreen{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
+top:0;left:0;
+width:100%;height:100%;
 background:linear-gradient(135deg,#ffd6ec,#ffeaf7);
 display:none;
 justify-content:center;
@@ -96,13 +82,21 @@ padding:20px;
 background:white;
 padding:40px;
 border-radius:30px;
-max-width:600px;
+max-width:700px;
 box-shadow:0 15px 40px rgba(255,105,180,0.3);
-position:relative;
-z-index:10;
 }
 
-/* توهج الاسم */
+.letterStyle{
+background:#fffafc;
+padding:30px;
+border-radius:20px;
+line-height:2;
+font-size:18px;
+border:1px solid #ffd6e8;
+text-align:right;
+}
+
+/* تأثيرات */
 .glowName{
 color:#ff1493;
 font-weight:bold;
@@ -113,37 +107,31 @@ from{text-shadow:0 0 5px #ff69b4;}
 to{text-shadow:0 0 20px #ff1493;}
 }
 
-/* Pink Glow */
-body.pinkGlow{
-animation:glowEffect 1.5s ease;
+.heartBeat{
+display:inline-block;
+animation:beat .6s ease;
+color:#ff3366;
+font-weight:bold;
 }
-@keyframes glowEffect{
-0%{background:#ffe6f2;}
-50%{background:#ffc0e6;}
-100%{background:#ffe6f2;}
+@keyframes beat{
+0%{transform:scale(1);}
+50%{transform:scale(1.3);}
+100%{transform:scale(1);}
 }
 
-/* Romantic Zoom */
 .mainReveal{
 animation:romanticZoom 1.5s ease forwards;
 }
 @keyframes romanticZoom{
-0%{opacity:0; transform:scale(0.95);}
-100%{opacity:1; transform:scale(1);}
+0%{opacity:0;transform:scale(.95);}
+100%{opacity:1;transform:scale(1);}
 }
 
-/* قلوب */
-.smallHeart{
-position:fixed;
-font-size:20px;
-animation:floatUp 1.5s ease forwards;
-pointer-events:none;
-z-index:1;
-}
-@keyframes floatUp{
-0%{opacity:1; transform:translateY(0) scale(1);}
-100%{opacity:0; transform:translateY(-40px) scale(1.5);}
-}
+.loveReasons{list-style:none;padding:0;text-align:right;}
+.loveReasons li{margin:8px 0;}
+
+.romanticFade{text-align:right;}
+.signature{margin-top:20px;font-style:italic;color:#ff4d94;}
 </style>
 </head>
 
@@ -151,7 +139,7 @@ z-index:1;
 
 <div id="lockScreen">
 <h2>اكتبي الباسورد يا أمورتي 🎀💖</h2>
-<input type="password" id="password" placeholder="الباسورد">
+<input type="password" id="password">
 <button onclick="checkPassword()">دخول</button>
 <p id="error" style="color:red;"></p>
 </div>
@@ -159,24 +147,34 @@ z-index:1;
 <div id="happyScreen">
 <div class="happyContent">
 <h1>Happy Message 💖✨</h1>
-<p id="longMessage"></p>
+<div id="longMessage" class="letterStyle"></div>
 <button id="nextBtn" style="display:none;" onclick="showMainContent()">التالي 🎀</button>
 </div>
 </div>
 
 <header>
 <h1>موكتي 💕</h1>
-<p>أجمل قصة حب في الدنيا</p>
 </header>
 
 <section>
-<h2>ذكرياتنا 💖</h2>
-<p>📅 أول يوم: 9 مايو 2025</p>
-<img src="image1.jpg">
-<p>📅 أول خروجة: 27 يوليو 2025</p>
-<img src="image2.jpg">
-<p>📅 أجمل خروجة: 7 يناير 2026</p>
-<img src="image3.jpg">
+<h2>ليه بحبك؟ 💕</h2>
+<ul class="loveReasons">
+<li>بحب ضحكتك اللي بتنور يومي ✨</li>
+<li>بحب قلبك الأبيض وطيبتك 🫶</li>
+<li>بحب اهتمامك بيا حتى من غير ما أطلب 💗</li>
+<li>بحب هزارك وحماسك وسلكانك 😌</li>
+<li>بحبك علشان إنتي أماني وراحتي 💖</li>
+</ul>
+</section>
+
+<section class="romanticFade">
+<h2>لو رجع بيا الزمن… 🌙</h2>
+<p>
+لو رجع بيا الزمن ألف مرة،<br>
+هختارك كل مرة من غير تردد.<br>
+وهفضل أحب نفس القلب ده كل مرة أكتر 💌
+</p>
+<p class="signature">— دانيال 💖</p>
 </section>
 
 <section>
@@ -193,15 +191,10 @@ z-index:1;
 <button onclick="document.getElementById('song').play()">شغلي الأغنية 💕</button>
 </section>
 
-<footer>
-بحبك قد الدنيا كلها ❤️
-</footer>
-
 <script>
 
 function checkPassword(){
-let pass=document.getElementById("password").value;
-if(pass==="موكتي"){
+if(document.getElementById("password").value==="موكتي"){
 document.getElementById("lockScreen").style.display="none";
 document.getElementById("happyScreen").style.display="flex";
 startTypingMessage();
@@ -212,24 +205,60 @@ document.getElementById("error").innerText="الباسورد غلط 💔";
 
 function startTypingMessage(){
 
-let text = `مونيكا 💖
+let text = `
 
-يعني أجمل إنسانة شافتها عيني مش كلام بجد ده حقيقي اكتر حد متعشم فيه وبخاف عليه حرفيا انتي انا اللي هو انتي لسه ماكلتيش يعني انا ماكلتش حرفيا بخاف عليكي اكتر من نفسي وبهتم بيكي اكتر مني.
+مونيكا 💖
 
-انتي حياتي والله، لو مشربتش مية هموت انا ولو مكلمتش مونيكا هموت بجد.
+يعني أجمل إنسانة شافتها عيني،
+ومش كلام بيتقال علشان مناسبة،
+ده إحساس حقيقي وثابت جوايا.
 
-فخور بيكي وشايفك شاطرة وعسولة وسالكة بزيادة وسلكانك بيبان في الهزار.
+إنتي أكتر حد متعشم فيه،
+وأكتر حد بخاف عليه،
+وبخاف عليكي أكتر من نفسي بكتير.
 
-مرينا بأحسن لحظات حياتنا سوا ويمكن اخر فترة مش احسن حاجة بس انا مبسوط معاكي.
+لما تبقي لسه ماكلتيش بحس إني أنا ماكلتش،
+ولما متشربيش مية بحس إني أنا عطشان.
+بقيتي جزء مني من غير ما أحس.
 
-كل سنة وانتي حبي ❤️
+إنتي أماني،
+وراحتي،
+والمكان اللي قلبي بيهدى فيه.
+
+فخور بيكي جدًا،
+وبعقلك،
+وبطموحك،
+وبقلبك الأبيض.
+
+بحب ضحكتك،
+بحب هزارك،
+بحب حماسك،
+حتى زعلك ليه طعم مختلف.
+
+يمكن عدينا بفترة مش أحسن حاجة،
+بس رغم أي حاجة،
+وجودك في حياتي هو أحسن حاجة حصلتلي.
+
+نفسي أبسطك،
+وأشوفك ناجحة،
+وأفضل مشجع ليكي طول العمر.
+
+لو الدنيا كلها وقفت قدامك،
+أنا هبقى جنبك.
+
+لو رجع بيا الزمن مليون مرة،
+هختارك إنتي كل مرة.
+
+أنا بموت فيكي،
+ومقدرش أعيش من غيرك ثانية.
 
 Forever 💍💖
 
-بحبك جدًا 🥹💞`;
+بحبك جدًا جدًا جدًا 💓🥹💞
+
+`;
 
 let i=0;
-let speed=35;
 let box=document.getElementById("longMessage");
 box.innerHTML="";
 
@@ -237,42 +266,26 @@ function type(){
 if(i<text.length){
 box.innerHTML+=text.charAt(i);
 i++;
-setTimeout(type,speed);
+setTimeout(type,30);
 }else{
-
-// بعد ما تخلص الكتابة
-highlightName();
-createForeverHearts();
+highlightSpecial();
 document.getElementById("nextBtn").style.display="inline-block";
 }
 }
 type();
 }
 
-function highlightName(){
+function highlightSpecial(){
 let box=document.getElementById("longMessage");
-box.innerHTML=box.innerHTML.replace("مونيكا","<span class='glowName'>مونيكا 💖</span>");
-}
-
-function createForeverHearts(){
-document.body.classList.add("pinkGlow");
-setTimeout(()=>{document.body.classList.remove("pinkGlow");},1500);
-
-for(let j=0;j<10;j++){
-let heart=document.createElement("div");
-heart.classList.add("smallHeart");
-heart.innerHTML="💖";
-heart.style.left=Math.random()*100+"vw";
-heart.style.top=Math.random()*100+"vh";
-document.body.appendChild(heart);
-setTimeout(()=>{heart.remove();},1500);
-}
+box.innerHTML=box.innerHTML.replace("مونيكا",
+"<span class='glowName'>مونيكا 💖</span>");
+box.innerHTML=box.innerHTML.replace(/بحبك/g,
+"<span class='heartBeat'>بحبك 💓</span>");
 }
 
 function showMainContent(){
 document.getElementById("happyScreen").style.display="none";
-let els=document.querySelectorAll("header, section, footer");
-els.forEach(el=>{
+document.querySelectorAll("header,section,footer").forEach(el=>{
 el.style.display="block";
 el.classList.add("mainReveal");
 });
@@ -282,12 +295,17 @@ var startDate=new Date("2025-05-09T00:00:00");
 function updateCounter(){
 var now=new Date();
 var diff=now-startDate;
-var days=Math.floor(diff/(1000*60*60*24));
-document.getElementById("loveCounter").innerHTML=days+" يوم حب 💖";
+var s=Math.floor(diff/1000);
+var d=Math.floor(s/86400);
+var h=Math.floor((s%86400)/3600);
+var m=Math.floor((s%3600)/60);
+var sec=s%60;
+document.getElementById("loveCounter").innerHTML=
+`${d} يوم ❤️ ${h} ساعة ⏰ ${m} دقيقة ⏳ ${sec} ثانية 💞`;
 }
 setInterval(updateCounter,1000);
 
 </script>
 
 </body>
-</html>
+  </html>
