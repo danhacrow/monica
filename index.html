@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>محبتي ❤️</title>
-
+<title>محبتي 💕</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -14,7 +13,7 @@ font-family:'Cairo',sans-serif;
 background:#ffe6f2;
 background-image:radial-gradient(#ffc0d9 2px, transparent 2px);
 background-size:40px 40px;
-color:#c2185b;
+color:#b0005f;
 text-align:center;
 overflow-x:hidden;
 }
@@ -44,7 +43,7 @@ border:none;
 margin:10px;
 }
 
-/* ازرار بناتي */
+/* ازرار */
 button{
 padding:12px 30px;
 border:none;
@@ -61,7 +60,6 @@ transform:translateY(-3px);
 box-shadow:0 8px 20px rgba(255,105,180,0.6);
 }
 
-/* سكاشن */
 section{
 background:white;
 margin:30px auto;
@@ -72,7 +70,6 @@ max-width:600px;
 box-shadow:0 10px 30px rgba(255,182,193,0.4);
 }
 
-/* صور */
 img{
 width:200px;
 margin:15px;
@@ -91,7 +88,7 @@ background:linear-gradient(135deg,#ffd6ec,#ffeaf7);
 display:none;
 justify-content:center;
 align-items:center;
-z-index:9998;
+z-index:1000;
 padding:20px;
 }
 
@@ -101,6 +98,19 @@ padding:40px;
 border-radius:30px;
 max-width:600px;
 box-shadow:0 15px 40px rgba(255,105,180,0.3);
+position:relative;
+z-index:10;
+}
+
+/* توهج الاسم */
+.glowName{
+color:#ff1493;
+font-weight:bold;
+animation:nameGlow 1.5s infinite alternate;
+}
+@keyframes nameGlow{
+from{text-shadow:0 0 5px #ff69b4;}
+to{text-shadow:0 0 20px #ff1493;}
 }
 
 /* Pink Glow */
@@ -122,11 +132,13 @@ animation:romanticZoom 1.5s ease forwards;
 100%{opacity:1; transform:scale(1);}
 }
 
-/* قلوب صغيرة */
+/* قلوب */
 .smallHeart{
 position:fixed;
 font-size:20px;
 animation:floatUp 1.5s ease forwards;
+pointer-events:none;
+z-index:1;
 }
 @keyframes floatUp{
 0%{opacity:1; transform:translateY(0) scale(1);}
@@ -137,7 +149,6 @@ animation:floatUp 1.5s ease forwards;
 
 <body>
 
-<!-- شاشة القفل -->
 <div id="lockScreen">
 <h2>اكتبي الباسورد يا أمورتي 🎀💖</h2>
 <input type="password" id="password" placeholder="الباسورد">
@@ -145,7 +156,6 @@ animation:floatUp 1.5s ease forwards;
 <p id="error" style="color:red;"></p>
 </div>
 
-<!-- شاشة Happy Message -->
 <div id="happyScreen">
 <div class="happyContent">
 <h1>Happy Message 💖✨</h1>
@@ -189,7 +199,6 @@ animation:floatUp 1.5s ease forwards;
 
 <script>
 
-/* باسورد */
 function checkPassword(){
 let pass=document.getElementById("password").value;
 if(pass==="موكتي"){
@@ -201,44 +210,51 @@ document.getElementById("error").innerText="الباسورد غلط 💔";
 }
 }
 
-/* كتابة الرسالة */
 function startTypingMessage(){
 
-let text = `
+let text = `مونيكا 💖
 
-مونيكا 💖
+يعني أجمل إنسانة شافتها عيني مش كلام بجد ده حقيقي اكتر حد متعشم فيه وبخاف عليه حرفيا انتي انا اللي هو انتي لسه ماكلتيش يعني انا ماكلتش حرفيا بخاف عليكي اكتر من نفسي وبهتم بيكي اكتر مني.
 
-إنتي أجمل إنسانة شافتها عيني...
-بحبك بجد ومقدرش أعيش من غيرك ثانية.
+انتي حياتي والله، لو مشربتش مية هموت انا ولو مكلمتش مونيكا هموت بجد.
+
+فخور بيكي وشايفك شاطرة وعسولة وسالكة بزيادة وسلكانك بيبان في الهزار.
+
+مرينا بأحسن لحظات حياتنا سوا ويمكن اخر فترة مش احسن حاجة بس انا مبسوط معاكي.
+
+كل سنة وانتي حبي ❤️
 
 Forever 💍💖
 
-`;
+بحبك جدًا 🥹💞`;
 
 let i=0;
 let speed=35;
 let box=document.getElementById("longMessage");
+box.innerHTML="";
 
 function type(){
 if(i<text.length){
 box.innerHTML+=text.charAt(i);
 i++;
-
-if(box.innerHTML.includes("Forever")){
-createForeverHearts();
-}
-
 setTimeout(type,speed);
 }else{
+
+// بعد ما تخلص الكتابة
+highlightName();
+createForeverHearts();
 document.getElementById("nextBtn").style.display="inline-block";
 }
 }
 type();
 }
 
-/* Pink Glow + Hearts */
-function createForeverHearts(){
+function highlightName(){
+let box=document.getElementById("longMessage");
+box.innerHTML=box.innerHTML.replace("مونيكا","<span class='glowName'>مونيكا 💖</span>");
+}
 
+function createForeverHearts(){
 document.body.classList.add("pinkGlow");
 setTimeout(()=>{document.body.classList.remove("pinkGlow");},1500);
 
@@ -253,7 +269,6 @@ setTimeout(()=>{heart.remove();},1500);
 }
 }
 
-/* اظهار الصفحة */
 function showMainContent(){
 document.getElementById("happyScreen").style.display="none";
 let els=document.querySelectorAll("header, section, footer");
@@ -263,7 +278,6 @@ el.classList.add("mainReveal");
 });
 }
 
-/* عداد الحب */
 var startDate=new Date("2025-05-09T00:00:00");
 function updateCounter(){
 var now=new Date();
@@ -276,4 +290,4 @@ setInterval(updateCounter,1000);
 </script>
 
 </body>
-                            </html>
+</html>
